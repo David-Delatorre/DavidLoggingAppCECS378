@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "45951498474",
+    "project_id": "backgroundlocationtracking2",
+    "storage_bucket": "backgroundlocationtracking2.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:45951498474:android:be7ff6875d1db5c945ff93",
+        "android_client_info": {
+          "package_name": "com.plcoding.backgroundlocationtracking"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDtMcnkVZdD13aTpeFk9kt_vMYlpyWPTdE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
