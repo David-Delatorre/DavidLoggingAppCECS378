@@ -1,12 +1,16 @@
 package com.plcoding.backgroundlocationtracking
 
 import android.Manifest
+import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
+import android.content.pm.PackageManager
+import android.os.Build
 import android.os.Bundle
 import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.annotation.RequiresApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -35,6 +39,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.core.app.ActivityCompat
+import com.google.android.gms.location.LocationServices
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
@@ -48,6 +53,8 @@ class MainActivity : ComponentActivity() {
 
 
 
+    @RequiresApi(Build.VERSION_CODES.Q)
+    @SuppressLint("MissingPermission")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         ActivityCompat.requestPermissions(
@@ -55,6 +62,7 @@ class MainActivity : ComponentActivity() {
             arrayOf(
                 Manifest.permission.ACCESS_COARSE_LOCATION,
                 Manifest.permission.ACCESS_FINE_LOCATION,
+                Manifest.permission.USE_FULL_SCREEN_INTENT
             ),
             0
         )
@@ -70,7 +78,7 @@ class MainActivity : ComponentActivity() {
                             startService(this)
                         }
                     }) {
-                        Text(text = "Start")
+                        Text(text = "Send current location to firebase")
                     }
                     Spacer(modifier = Modifier.height(16.dp))
                     Button(onClick = {
@@ -86,9 +94,16 @@ class MainActivity : ComponentActivity() {
                 // and database reference.
                 val firebaseDatabase = FirebaseDatabase.getInstance();
                 val databaseReference = firebaseDatabase.getReference("LocationInfo");
-
+                val fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
+                fusedLocationClient.lastLocation
+                    .addOnSuccessListener {
+                        location -> location.let{
+                            val latitude = location.latitude
+                            val longitude = location.longitude
+                        }
+                    }
                 // on below line we are calling method to display UI
-                firebaseUI(LocalContext.current, databaseReference)
+                //firebaseUI(LocalContext.current, databaseReference)
             }
         }
     }
