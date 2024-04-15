@@ -61,9 +61,7 @@ class MainActivity : ComponentActivity() {
             this,
             arrayOf(
                 Manifest.permission.ACCESS_COARSE_LOCATION,
-                Manifest.permission.ACCESS_FINE_LOCATION,
-                Manifest.permission.USE_FULL_SCREEN_INTENT
-            ),
+                Manifest.permission.ACCESS_FINE_LOCATION),
             0
         )
 
@@ -92,18 +90,19 @@ class MainActivity : ComponentActivity() {
                 }
                 // on below line creating variable for freebase database
                 // and database reference.
-                val firebaseDatabase = FirebaseDatabase.getInstance();
-                val databaseReference = firebaseDatabase.getReference("LocationInfo");
-                val fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
-                fusedLocationClient.lastLocation
-                    .addOnSuccessListener {
-                        location -> location.let{
-                            val latitude = location.latitude
-                            val longitude = location.longitude
-                        }
-                    }
+//                val firebaseDatabase = FirebaseDatabase.getInstance();
+//                val databaseReference = firebaseDatabase.getReference("LocationInfo");
+//                val fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
+//                fusedLocationClient.lastLocation
+//                    .addOnSuccessListener {
+//                        location -> location.let{
+//                            val latitude = location.latitude
+//                            val longitude = location.longitude
+//                        }
+//                    }
                 // on below line we are calling method to display UI
                 //firebaseUI(LocalContext.current, databaseReference)
+
             }
         }
     }
