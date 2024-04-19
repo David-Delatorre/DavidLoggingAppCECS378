@@ -89,24 +89,23 @@ class MainActivity : ComponentActivity() {
                     }
                     Spacer(modifier = Modifier.height(16.dp))
                     Button(onClick = {
+
                         val fusedLocationClient = LocationServices.getFusedLocationProviderClient(this@MainActivity)
                         fusedLocationClient.lastLocation
-                            .addOnSuccessListener {
-                        location -> location.let{
+                            .addOnSuccessListener { location -> location.let{
                                 val lat = location.latitude
                                 val long = location.longitude
-                                val intent = Intent("com.example.ACTION_SEND_LOCATION").apply {
-                                    intent.putExtra("latitude", lat)
-                                    intent.putExtra("longitude", long)
+
+                                val intent = Intent("ACTION_SEND_LOCATION").apply {
+                                    putExtra("latitude", lat)
+                                    putExtra("longitude", long)
                                 }
 
-                                Toast.makeText(applicationContext,
-                                    "lat $lat long $long",
-                                    Toast.LENGTH_SHORT).show()
+                                sendBroadcast(intent)
                             }
                     }
                     }) {
-                        Text(text = "Send Data")
+                        Text(text = "Send Broadcast")
                     }
                 }
                 // on below line creating variable for freebase database
