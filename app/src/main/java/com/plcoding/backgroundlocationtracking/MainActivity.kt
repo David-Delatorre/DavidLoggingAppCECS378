@@ -76,7 +76,7 @@ class MainActivity : ComponentActivity() {
                             startService(this)
                         }
                     }) {
-                        Text(text = "Send current location to firebase")
+                        Text(text = "Start")
                     }
                     Spacer(modifier = Modifier.height(16.dp))
                     Button(onClick = {
@@ -86,6 +86,27 @@ class MainActivity : ComponentActivity() {
                         }
                     }) {
                         Text(text = "Stop")
+                    }
+                    Spacer(modifier = Modifier.height(16.dp))
+                    Button(onClick = {
+                        val fusedLocationClient = LocationServices.getFusedLocationProviderClient(this@MainActivity)
+                        fusedLocationClient.lastLocation
+                            .addOnSuccessListener {
+                        location -> location.let{
+                                val lat = location.latitude
+                                val long = location.longitude
+                                val intent = Intent("com.example.ACTION_SEND_LOCATION").apply {
+                                    intent.putExtra("latitude", lat)
+                                    intent.putExtra("longitude", long)
+                                }
+
+                                Toast.makeText(applicationContext,
+                                    "lat $lat long $long",
+                                    Toast.LENGTH_SHORT).show()
+                            }
+                    }
+                    }) {
+                        Text(text = "Send Data")
                     }
                 }
                 // on below line creating variable for freebase database
